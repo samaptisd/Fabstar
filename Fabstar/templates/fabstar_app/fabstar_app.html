@@ -1,0 +1,213 @@
+{% extends 'fabstar_app/base.html' %}
+{% block title %}Fabstar App{% endblock %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAB Star Rewards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: 'Poppins', sans-serif;
+            }
+        
+            body {
+                background: #f4f9ff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                min-height: 100vh;
+                padding-top: 20px;
+            }
+        
+            .container1 {
+                max-width: 1200px;
+                background-color: #ffffff;
+                border-radius: 15px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                display: flex;
+                overflow: hidden;
+                padding: 30px;
+                margin-top: 20px;
+                gap: 30px;
+            }
+        
+            .left-section {
+                flex: 1;
+                padding: 20px 30px;
+                border-right: 1px solid #e0e0e0;
+            }
+        
+            .right-section {
+                flex: 1;
+                padding: 20px 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        
+            .header {
+                font-size: 30px;
+                color: #1d8348;
+                margin-bottom: 15px;
+                font-weight: 700;
+            }
+        
+            .sub-header {
+                font-size: 18px;
+                color: #4d4d4d;
+                margin-bottom: 25px;
+            }
+        
+            .feature-list {
+                background-color: #e8f5ff;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 20px;
+                list-style: none;
+            }
+        
+            .feature-list li {
+                font-size: 16px;
+                margin-bottom: 10px;
+                color: #555;
+            }
+        
+            .download-button {
+                display: flex;
+                align-items: center;
+                margin-top: 20px;
+            }
+        
+            .download-button button {
+                background-color: #041f3b;
+                color: #fff;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+        
+            .download-button button:hover {
+                background-color: #0056b3;
+            }
+        
+            .download-button img {
+                width: 80px;
+                height: 80px;
+                margin-left: 10px;
+            }
+        
+            .app-image img {
+                width: 100%;
+                max-width: 600px;
+                height: auto;
+                border-radius: 15px;
+                border: 1px solid #ddd;
+            }
+        
+            .right-section h2 {
+                font-size: 24px;
+                color: #333;
+                margin-bottom: 15px;
+                font-weight: 600;
+                text-align: left;
+                width: 100%;
+            }
+        
+            .right-section p {
+                font-size: 16px;
+                color: #555;
+                line-height: 1.6;
+                margin-bottom: 15px;
+            }
+        
+            .highlight {
+                color: #007bff;
+                font-weight: 600;
+            }
+        
+            /* ---------- Responsive for Mobile ---------- */
+            @media (max-width: 768px) {
+                .container1 {
+                    flex-direction: column;
+                    padding: 20px;
+                }
+        
+                .left-section {
+                    border-right: none;
+                    border-bottom: 1px solid #e0e0e0;
+                    padding-bottom: 20px;
+                }
+        
+                .right-section {
+                    padding-top: 20px;
+                }
+        
+                .header {
+                    font-size: 24px;
+                }
+        
+                .sub-header,
+                .feature-list li,
+                .right-section p {
+                    font-size: 14px;
+                }
+        
+                .download-button {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+        
+                .download-button img {
+                    margin-left: 0;
+                    margin-top: 10px;
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+        </style>
+        
+</head>
+<body>
+    <div class="container1">
+        <div class="left-section">
+            <div class="header">Earn and Grow with Aludecor Stars</div>
+            <div class="sub-header">Introducing FAB Star 2.0 Rewards for Every Sheet. Scan, Earn, and Redeem Points Easily with Our Mobile App.</div>
+            <ul class="feature-list">
+                <li>Easy QR Scanning: Upload invoices and track points.</li>
+                <li>Fast Redemptions: Get cash rewards within 7 days.</li>
+                <li>Bonus Points: Earn extra during special schemes and festive seasons.</li>
+                <li>Earn Up to ₹75,000 Annually through exclusive rewards for fabricators.</li>
+            </ul>
+            <div class="download-button">
+                <button onclick="window.open('https://play.google.com/store/apps/details?id=com.aludecor.app&hl=en-IN', '_blank');">Download the FAB Star App Today</button>
+                <img src="{% static 'fab_app/app_qr_code.png' %}" alt="QR Code">
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="app-image">
+                <img src="{% static 'fab_app/fabapp.jpg' %}" alt="App Mockup">
+            </div>
+            <!-- <h2>Why Aludecor for Fabricators?</h2>
+            <p><span class="highlight">India's Leading ACP Manufacturer:</span> Aludecor has 20+ years of industry expertise, producing innovative ACP solutions that meet global standards.</p>
+            <p><span class="highlight">Your Reliable Business Partner:</span> With three manufacturing units and exports to over 30 countries, we ensure timely, high-quality ACP products that keep your projects on track.</p> -->
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

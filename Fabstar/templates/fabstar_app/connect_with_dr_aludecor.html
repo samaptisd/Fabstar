@@ -1,0 +1,261 @@
+{% extends 'fabstar_app/base.html' %}
+{% block title %}Fabstar App{{ user.first_name }} {{ user.last_name }}{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aludecor Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fc;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container1 {
+            max-width: 1200px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            padding: 30px;
+            gap: 20px;
+        }
+
+        .left-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .image {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .text-section {
+            margin-top: 20px;
+        }
+
+        .text-section h1 {
+            font-size: 28px;
+            color: #1d8348;
+            margin-bottom: 10px;
+        }
+
+        .text-section p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .qr-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .qr-section img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .qr-section .contact-info {
+            font-size: 14px;
+            border: 1px solid #d1d5db;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .right-section {
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .right-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .faq {
+            list-style: none;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .faq-item h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1d8348;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-item p {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .faq-item.open p {
+            display: block;
+        }
+
+        .faq-item h3 span {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open h3 span {
+            transform: rotate(90deg);
+        }
+
+        /* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    align-items: flex-start;
+  }
+
+  .container1 {
+    flex-direction: column;
+    padding: 20px;
+    gap: 30px;
+  }
+
+  .left-section,
+  .right-section {
+    padding: 0;
+    flex: none;
+    width: 100%;
+  }
+
+  .text-section h1 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .text-section p {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .qr-section {
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .qr-section .contact-info {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .image img {
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .right-section h2 {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .faq-item h3 {
+    font-size: 16px;
+    justify-content: center;
+  }
+
+  .faq-item p {
+    font-size: 13px;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container1">
+        <div class="left-section">
+            <div class="image">
+                <img src="{% static '/fab_app/wa-aludecor.jpg' %}" alt="Construction Workers">
+            </div>
+            <div class="text-section">
+              <h1>Hello, I am Dr. Aludecor</h1>
+              <p>To connect with me, scan the QR code below and send the message 'Growth'.</p>
+              
+            </div>
+            <div class="qr-section">
+                <img src="{% static '/fab_app/wa_qr_code.png' %}" alt="QR Code">
+                <div class="contact-info">Growth on +91 90078 24242</div>
+            </div>
+        </div>
+        <div class="right-section">
+            <h2>FAQ</h2>
+            <ul class="faq">
+                <li class="faq-item">
+                    <h3>What is the use of ACP in construction? <span>&#9654;</span></h3>
+                    <p>ACP as a product is used to enhance the aesthetics of a building. Its purpose is to give a well-defined, smart and a modern look.</p>
+                </li>
+                <li class="faq-item">
+                    <h3>Are aluminium composite panels Fire Resistant? <span>&#9654;</span></h3>
+                    <p>Aluminium composite panels are Fire resistant depending on the type of core material being used. Generally Mg(OH)2 is added as a non-combustible material.</p>
+                </li>
+                <li class="faq-item">
+                    <h3>What does ASTM stand for? <span>&#9654;</span></h3>
+                    <p>ASTM stands for American Society for Testing Material.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}

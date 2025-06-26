@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aludecor Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: url(https://i.postimg.cc/VLLn2QP5/bg-image.png) center
+          no-repeat;
+        background-size: cover;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .login-container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+        padding: 50px 30px;
+        min-width: 350px;
+        font-weight: 500;
+        color: gray;
+        background: radial-gradient(
+          circle,
+          rgba(239, 232, 232, 1) 0%,
+          rgba(148, 188, 233, 0.54) 100%
+        );
+      }
+
+      .input-sec {
+        border-radius: 40px;
+        font-size: 14px;
+      }
+
+      .btn-div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-login {
+        background-color: #3f51b5;
+        border-color: #3f51b5;
+        width: 100px;
+        border-radius: 40px;
+      }
+
+      .sub-text {
+        font-size: 14px;
+        color: #6c757d;
+      }
+
+      .btn-login:hover {
+        background-color: #303f9f;
+        border-color: #303f9f;
+      }
+
+      .logo {
+        width: 50%;
+      }
+
+      .forgot-password {
+        color: #3f51b5;
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .forgot-password:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <script>
+      var vapiInstance = null;
+      
+        const assistant = "b4fe94e2-cf4e-4e24-8eb0-da4468063ab1"; // Substitute with your Assistant ID
+      
+        const apiKey = "34d36006-4387-437c-a868-5314b53ca284"; // Substitute with your Public Key from Vapi Dashboard.
+      
+        const buttonConfig = {
+
+position: "bottom-left",
+
+offset: "40px",
+
+width: "50px",
+
+height: "50px",
+
+idle: {
+
+  color: `rgb(93, 254, 202)`,
+
+  type: "pill",
+
+  title: "Need Support?",
+
+  subtitle: "Talk with our Dr. Aludecor",
+
+  icon: `https://unpkg.com/lucide-static@0.321.0/icons/phone.svg`,
+
+},
+
+loading: {
+
+  color: `rgb(93, 124, 202)`,
+
+  type: "pill",
+
+  title: "Connecting...",
+
+  subtitle: "Please wait",
+
+  icon: `https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg`,
+
+},
+
+active: {
+
+  color: `rgb(255, 0, 0)`,
+
+  type: "pill",
+
+  title: "Call in progress...",
+
+  subtitle: "End the call",
+
+  icon: `https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg`,
+
+},
+
+};
+      
+        (function (d, t) {
+      
+          var g = document.createElement(t),
+      
+            s = d.getElementsByTagName(t)[0];
+      
+          g.src =
+      
+            "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+      
+          g.defer = true;
+      
+          g.async = true;
+      
+          s.parentNode.insertBefore(g, s);
+      
+          g.onload = function () {
+      
+            vapiInstance = window.vapiSDK.run({
+      
+              apiKey: apiKey, // mandatory
+      
+              assistant: assistant, // mandatory
+      
+              config: buttonConfig, // optional
+      
+            });
+      
+          };
+      
+        })(document, "script");
+      
+      </script>
+
+
+    <div class="container-fluid">
+      <div
+        class="row vh-100"
+        style="display: flex; align-items: center; justify-content: flex-end;"
+      >
+        <div class="col-md-5 d-flex align-items-center justify-content-center">
+          <div class="login-container">
+            <div class="text-center mb-4">
+              <img
+                src="https://i.postimg.cc/wT9vcqX8/Aludecor-New-Logo-01.png"
+                alt="Aludecor Logo"
+                class="img-fluid logo"
+              />
+              {% comment %} <p class="mt-2 text-muted">Metal Composite Panel</p> {% endcomment %}
+            </div>
+            <p class="text-center mb-4 sub-text">
+              Enter Username & Password To Login
+            </p>
+            <form method="post" action="{% url 'login' %}">
+              {% csrf_token %}
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control input-sec"
+                  name="username"
+                  placeholder="Username"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="password"
+                  class="form-control input-sec"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="d-grid btn-div">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-login"
+                >
+                  Log In
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+      import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+      Chatbot.init({
+          chatflowid: "933de812-5b31-4155-9b90-2fff4041585b",
+          apiHost: "https://flowise.aludecor.co.in",
+          chatflowConfig: {
+              /* Chatflow Config */
+          },
+          observersConfig: {
+              /* Observers Config */
+          },
+          theme: {
+              button: {
+                  backgroundColor: '#bdcade',
+                  right: 20,
+                  bottom: 20,
+                  size: 48,
+                  dragAndDrop: true,
+                  iconColor: 'white',
+                  customIconSrc:  'https://i.imgur.com/60YJEl1.png',
+
+                  autoWindowOpen: {
+                      autoOpen: true,
+                      openDelay: 2,
+                      autoOpenOnMobile: false
+                  }
+              },
+              tooltip: {
+                  showTooltip: true,
+                  tooltipMessage: 'Hi There 👋!',
+                  tooltipBackgroundColor: 'black',
+                  tooltipTextColor: 'white',
+                  tooltipFontSize: 16
+              },
+              disclaimer: {
+                  title: 'Dr. Aludecor',
+                  message: "By using this chatbot, you agree to the <a target=\"_blank\" href=\"https://flowiseai.com/terms\">Terms & Condition</a>",
+                  textColor: 'black',
+                  buttonColor: '#3b82f6',
+                  buttonText: 'Start Chatting',
+                  buttonTextColor: 'white',
+                  blurredBackgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  backgroundColor: 'white'
+              },
+              customCSS: ``,
+              chatWindow: {
+                  showTitle: true,
+                  showAgentMessages: true,
+                  title: 'Dr. Aludecor',
+                  titleAvatarSrc: 'https://i.imgur.com/EuG5wKo.png',
+                  welcomeMessage: "Hi! I'm Dr. Aludecor. How can I help you today?",
+                  errorMessage: "Oops! Something went wrong. Please try again.",
+                  backgroundColor: '#ffffff',
+                  backgroundImage: 'enter image path or link',
+                  height: 500,
+                  width: 400,
+                  fontSize: 12,
+                  starterPrompts: [
+                      "Hi",
+                     
+                  ],
+                  starterPromptFontSize: 15,
+                  clearChatOnReload: false,
+                  sourceDocsTitle: 'Sources:',
+                  renderHTML: true,
+                  botMessage: {
+                      backgroundColor: '#f7f8ff',
+                      textColor: '#303235',
+                      showAvatar: true,
+                      avatarSrc: 'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg'
+                  },
+                  userMessage: {
+                      backgroundColor: '#3B81F6',
+                      textColor: '#ffffff',
+                      showAvatar: true,
+                      avatarSrc: 'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg'
+                  },
+                  textInput: {
+                      placeholder: 'Type your question',
+                      backgroundColor: '#ffffff',
+                      textColor: '#303235',
+                      sendButtonColor: '#3B81F6',
+                      maxChars: 500,
+                      maxCharsWarningMessage: 'You exceeded the characters limit. Please input less than 500 characters.',
+                      autoFocus: true,
+                      sendMessageSound: true,
+                      sendSoundLocation: '/static/audio/send_message.mp3',
+                      receiveMessageSound: true,
+                      receiveSoundLocation: 'receive_message.mp3'
+                  },
+                  feedback: {
+                      color: '#303235'
+                  },
+                  dateTimeToggle: {
+                      date: true,
+                      time: true
+                  },
+                  footer: {
+                      textColor: '#303235',
+                      text: 'Powered by',
+                      company: 'Aludecor',
+                      companyLink: 'https://aludecor.com'
+                  }
+              }
+          }
+      })
+  </script>
+
+  
+  
+  </body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" />
+  <title>Aludecor Sidebar</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      height: 100%;
+      background-color: #f8f9fb;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      
+  
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100vh;
+      {% comment %} background-color: #ffffff; {% endcomment %}
+      padding: 20px;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+
+
+      background-image: url('/static/images/icon bak.jpg');
+      background-size: cover; 
+      background-position: center; 
+      background-repeat: no-repeat; 
+    }
+
+    .sidebar.collapsed {
+      transform: translateX(-100%);
+    }
+
+    .menu-toggle {
+      display: none;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      font-size: 24px;
+      padding: 10px;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .logo img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      width: 90%;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      color: #4a4a4a;
+    }
+
+    .menu-item.active {
+      background-color: #070533;
+      color: white;
+    }
+
+    .menu-item.active i {
+      color: white;
+    }
+
+    .menu-item:hover {
+      background-color: #bfcaee;
+    }
+
+    .menu-item i {
+      font-size: 24px;
+      margin-right: 15px;
+      color: #4f46e5;
+    }
+
+    .menu-item span {
+      font-weight: 500;
+      font-size: 16px;
+      color: inherit;
+    }
+
+    .logout-btn {
+      margin-top: auto;
+      background-color: #ffffff;
+      color: #4f46e5;
+      border: 2px solid #4f46e5;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .logout-btn:hover {
+      background-color: #4f46e5;
+      color: white;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+      .logout-btn {
+    margin-top: 20px;
+    background-color: transparent; /* Make background transparent */
+    color: #5a52ff; /* Blue text color */
+    border: 1.5px solid #5a52ff; /* Blue border color */
+    border-radius: 30px; /* Rounded corners */
+    font-size: 16px;
+    padding: 8px 25px; /* Adjust padding for better spacing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 8px rgba(90, 82, 255, 0.3); /* Subtle box shadow */
+}
+
+.logout-btn:hover {
+    background-color: #f0f4ff; /* Light blue background on hover */
+    color: #3a3aff; /* Slightly darker blue text on hover */
+    border-color: #3a3aff; /* Change border color on hover */
+}
+
+.logout-btn i {
+    font-size: 20px; /* Icon size */
+    color: inherit; /* Inherit color from button */
+}
+
+      
+    }
+  </style>
+</head>
+<body>
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="container">
+    <div class="sidebar" id="sidebar">
+      <div class="logo">
+        <img src="/static/images/logo.jpg" alt="Aludecor Logo" />
+      </div>
+      <a href="{% url 'home' %}" class="menu-item">
+        <i class="material-icons">dashboard</i>
+        <span>Dashboard</span>
+      </a>
+      <a href="{% url 'profile' %}" class="menu-item">
+        <i class="material-icons">person</i>
+        <span>Profile</span>
+      </a>
+      <a href="{% url 'aludecor_flipbook' %}" class="menu-item">
+        <i class="material-icons">book</i>
+        <span>Technical Manual</span>
+      </a>
+      <a href="{% url 'aludecor_calculator' %}" class="menu-item">
+        <i class="material-icons">calculate</i>
+        <span>Aludecor Calculator</span>
+      </a>
+      <a href="{% url 'aludecor_design_assist' %}" class="menu-item">
+        <i class="material-icons">lightbulb</i>
+        <span>Design Assist</span>
+      </a>
+      <a href="{% url 'fabstar_app' %}" class="menu-item">
+        <i class="material-icons">apps</i>
+        <span>Fabstar App</span>
+      </a>
+      <a href="{% url 'connect_with_dr_aludecor' %}" class="menu-item">
+        <i class="material-icons">medical_services</i>
+        <span>Dr. Aludecor</span>
+      </a>
+      <br>
+      <form method="post" action="{% url 'custom_logout' %}" >
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+          <i class="material-icons">power_settings_new</i>
+          <span>Log Out</span>
+        </button>
+      </form>
+    </br>
+    </div>
+
+    <div class="main-content">
+      {% block content %}{% endblock content %}
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
+    }
+
+    // Highlight the active menu item
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.menu-item').forEach(menu => menu.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+
+  <script type="module">
+    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    Chatbot.init({
+        chatflowid: "933de812-5b31-4155-9b90-2fff4041585b",
+        apiHost: "https://flowise.aludecor.co.in",
+        chatflowConfig: {
+            /* Chatflow Config */
+        },
+        observersConfig: {
+            /* Observers Config */
+        },
+        theme: {
+            button: {
+                backgroundColor: '#bdcade',
+                right: 20,
+                bottom: 20,
+                size: 48,
+                dragAndDrop: true,
+                iconColor: 'white',
+                customIconSrc:  'https://i.imgur.com/60YJEl1.png',
+
+                autoWindowOpen: {
+                    autoOpen: true,
+                    openDelay: 2,
+                    autoOpenOnMobile: false
+                }
+            },
+            tooltip: {
+                showTooltip: true,
+                tooltipMessage: 'Hi There 👋!',
+                tooltipBackgroundColor: 'black',
+                tooltipTextColor: 'white',
+                tooltipFontSize: 16
+            },
+            disclaimer: {
+                title: 'Dr. Aludecor',
+                message: "By using this chatbot, you agree to the <a target=\"_blank\" href=\"https://flowiseai.com/terms\">Terms & Condition</a>",
+                textColor: 'black',
+                buttonColor: '#3b82f6',
+                buttonText: 'Start Chatting',
+                buttonTextColor: 'white',
+                blurredBackgroundColor: 'rgba(0, 0, 0, 0.4)',
+                backgroundColor: 'white'
+            },
+            customCSS: ``,
+            chatWindow: {
+                showTitle: true,
+                showAgentMessages: true,
+                title: 'Dr. Aludecor',
+                titleAvatarSrc: 'https://i.imgur.com/EuG5wKo.png',
+                welcomeMessage: "Hi! I'm Dr. Aludecor. How can I help you today?",
+                errorMessage: "Oops! Something went wrong. Please try again.",
+                backgroundColor: '#ffffff',
+                backgroundImage: 'enter image path or link',
+                height: 500,
+                width: 400,
+                fontSize: 12,
+                starterPrompts: [
+                    "Hi",
+                   
+                ],
+                starterPromptFontSize: 15,
+                clearChatOnReload: false,
+                sourceDocsTitle: 'Sources:',
+                renderHTML: true,
+                botMessage: {
+                    backgroundColor: '#f7f8ff',
+                    textColor: '#303235',
+                    showAvatar: true,
+                    avatarSrc: 'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg'
+                },
+                userMessage: {
+                    backgroundColor: '#3B81F6',
+                    textColor: '#ffffff',
+                    showAvatar: true,
+                    avatarSrc: 'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg'
+                },
+                textInput: {
+                    placeholder: 'Type your question',
+                    backgroundColor: '#ffffff',
+                    textColor: '#303235',
+                    sendButtonColor: '#3B81F6',
+                    maxChars: 500,
+                    maxCharsWarningMessage: 'You exceeded the characters limit. Please input less than 500 characters.',
+                    autoFocus: true,
+                    sendMessageSound: true,
+                    sendSoundLocation: '/static/audio/send_message.mp3',
+                    receiveMessageSound: true,
+                    receiveSoundLocation: 'receive_message.mp3'
+                },
+                feedback: {
+                    color: '#303235'
+                },
+                dateTimeToggle: {
+                    date: true,
+                    time: true
+                },
+                footer: {
+                    textColor: '#303235',
+                    text: 'Powered by',
+                    company: 'Aludecor',
+                    companyLink: 'https://aludecor.com'
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

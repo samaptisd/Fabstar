@@ -1,0 +1,289 @@
+{% extends 'fabstar_app/base.html' %}
+{% load static %}
+
+{% block title %}Technical Manual Flipbook{% endblock %}
+
+{% block content %}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" />
+
+<!-- Main container to wrap the title and flipbook -->
+<div class="main-container">
+    <h1 class="manual-title">Technical Manual</h1>
+
+    <div class="flipbook-container">
+        <div class="sidebar1" id="sidebar1">
+            <h3 class="sidebar1-title">Index ━━━━━━</h3>
+            <hr class="divider">
+            <ul class="index">
+                <li onclick="goToPage(1)">1. Introduction to Metal Composite Panels</li>
+                <li onclick="goToPage(2)">2. Aluminium and Aluminium Alloys</li>
+                <li onclick="goToPage(3)">3. Zinc & Copper</li>
+                <li onclick="goToPage(4)">4. Coil Coating/Paint</li>
+                <li onclick="goToPage(5)">5. Core</li>
+                <li onclick="goToPage(6)">6. Design Guidance</li>
+                <li onclick="goToPage(7)">7. Fabrication Guidance</li>
+                <li onclick="goToPage(8)">8. Aludecor Systems</li>
+                <li onclick="goToPage(9)">9. Cleaning, Maintenance & Product Handling</li>
+                <li onclick="goToPage(10)">Annexure 1: EN 573 and EN 485</li>
+                <li onclick="goToPage(11)">Annexure 1: TDS of Products</li>
+                <li onclick="goToPage(12)">Annexure 1: EXOVA Test Certificates</li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="toolbar">
+                <button onclick="previousPage()" class="toolbar-button">⤶</button>
+                <button onclick="nextPage()" class="toolbar-button">⤷</button>
+                <button onclick="searchPage()" class="toolbar-button"><span class="material-symbols-outlined">search</span></button>
+                <button onclick="zoomIn()" class="toolbar-button"><span class="material-symbols-outlined">zoom_in</span></button>
+                <button onclick="zoomOut()" class="toolbar-button"><span class="material-symbols-outlined">zoom_out</span></button>
+                <button onclick="toggleFullPage()" class="toolbar-button"><span class="material-symbols-outlined">fullscreen</span></button>
+                <button onclick="downloadPDF()" class="toolbar-button"><span class="material-symbols-outlined">download</span></button>
+            </div>
+            <div class="content">
+                <canvas id="pdf-canvas-left" class="pdf-page"></canvas>
+                <canvas id="pdf-canvas-right" class="pdf-page"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+    body {
+        background: url('/static/fab_app/techbg.jpg') no-repeat;
+        background-size: cover;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .main-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px; /* Adjust padding as needed */
+        text-align: center;
+    }
+    .manual-title {
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 20px; /* Space between title and content */
+        text-align: left
+       
+    }
+    .flipbook-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 90vh;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: #ffffff;
+    }
+    .sidebar1 {
+        background-color: #f0f4f8;
+        padding: 10px;
+        width: 25%;
+        overflow-y: auto;
+        border-right: 1px solid #e2e8f0;
+    }
+    .sidebar1-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    .divider {
+        border: 0;
+        height: 1px;
+        background-color: #e2e8f0;
+        margin-bottom: 10px;
+    }
+    .index {
+        list-style-type: none;
+        padding: 0;
+    }
+    .index li {
+        padding: 5px 0;
+        cursor: pointer;
+        transition: color 0.3s, transform 0.3s;
+        font-size: 0.9rem;
+        color: #374151;
+        text-align: left;
+        
+    }
+    .index li:hover {
+        color: #1d4ed8;
+        transform: translateX(5px);
+    }
+    .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+        overflow: hidden;
+    }
+    .toolbar {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+    .toolbar-button {
+        background-color: #4e46e527;
+        color: #111;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .toolbar-button:hover {
+        background-color: #3b3ca1;
+        color: #fff;
+    }
+    .content {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow: hidden;
+    }
+    .pdf-page {
+        width: 48%;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+    }
+    @media (max-width: 768px) {
+        .flipbook-container {
+            flex-direction: column;
+            height: auto;
+        }
+        .sidebar1 {
+            display: none;
+        }
+        .main-content {
+            padding: 5px;
+        }
+        .content {
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 5px;
+        }
+        .pdf-page {
+            width: 48%;
+            max-height: 40vh;
+        }
+    }
+</style>
+
+<!-- PDF.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+<script>
+    const pdfjsLib = window['pdfjsLib'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+    const url = '{% static "fab_app/Technical_Manual.pdf" %}'; // Path to your PDF
+    const canvasLeft = document.getElementById('pdf-canvas-left');
+    const contextLeft = canvasLeft.getContext('2d');
+    const canvasRight = document.getElementById('pdf-canvas-right');
+    const contextRight = canvasRight.getContext('2d');
+
+    let pdfDoc = null;
+    let currentPage = 1;
+    let scale = 1.5; // Zoom scale
+
+    // Load the PDF
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdfDoc = pdf;
+        renderPages();
+    }).catch(error => {
+        console.error('Error loading PDF:', error);
+    });
+
+    function renderPages() {
+        renderPage(currentPage, contextLeft, canvasLeft);
+        if (currentPage + 1 <= pdfDoc.numPages) {
+            renderPage(currentPage + 1, contextRight, canvasRight);
+        } else {
+            contextRight.clearRect(0, 0, canvasRight.width, canvasRight.height);
+        }
+    }
+
+    function renderPage(pageNum, context, canvas) {
+        pdfDoc.getPage(pageNum).then(page => {
+            const viewport = page.getViewport({ scale: scale });
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const renderContext = { canvasContext: context, viewport: viewport };
+            page.render(renderContext);
+        });
+    }
+
+    function nextPage() {
+        if (currentPage + 2 <= pdfDoc.numPages) {
+            currentPage += 2;
+            renderPages();
+        }
+    }
+
+    function previousPage() {
+        if (currentPage - 2 > 0) {
+            currentPage -= 2;
+            renderPages();
+        }
+    }
+
+    function goToPage(page) {
+        if (page > 0 && page <= pdfDoc.numPages) {
+            currentPage = page % 2 === 0 ? page - 1 : page;
+            renderPages();
+        }
+    }
+
+    function searchPage() {
+        const page = parseInt(prompt("Enter page number to search:"));
+        if (!isNaN(page)) goToPage(page);
+    }
+
+    function zoomIn() {
+        scale += 0.2;
+        renderPages();
+    }
+
+    function zoomOut() {
+        if (scale > 0.4) {
+            scale -= 0.2;
+            renderPages();
+        }
+    }
+
+    function toggleFullPage() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+
+    function downloadPDF() {
+        window.open(url, '_blank');
+    }
+</script>
+{% endblock %}

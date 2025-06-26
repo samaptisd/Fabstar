@@ -1,0 +1,46 @@
+{% extends 'fabstar_app/base.html' %}
+
+{% block title %}aludecor_design_assist{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Assist</title>
+    <style>
+        html, body {
+            height: 98%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .iframe-container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="iframe-container">
+        <iframe src="https://www.aludecor.com/design" frameborder="0" allowfullscreen></iframe>
+        <div class="fallback-message">
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

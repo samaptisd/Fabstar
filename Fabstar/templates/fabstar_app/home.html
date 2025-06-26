@@ -1,0 +1,276 @@
+{% extends 'fabstar_app/base.html' %}
+
+{% block title %}Home - Fabstar{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <title>Aludecor Dashboard</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        height: 100%;
+        width: 100%;
+        /* background-color: #f4f5f7; */
+        background: url('/static/fab_app/dashboardbg.jpg') no-repeat center center;
+        background-size: cover;
+      }
+
+      .main-content1 {
+        padding: 20px 40px;
+
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+        color: #111827;
+      }
+
+      .search-bar {
+        padding: 8px 15px;
+        border-radius: 20px;
+        border: 1px solid #d1d5db;
+        width: 250px;
+        transition: border-color 0.3s;
+      }
+
+      .search-bar:focus {
+        border-color: #3b82f6;
+        outline: none;
+      }
+
+      .user-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .user-icon {
+        width: 35px;
+        height: 35px;
+        background-color: #c5cee2b9;
+        border-radius: 50%;
+      }
+
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+        color: white;
+      }
+
+      .card h2 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 5px;
+      }
+
+      .card p {
+        font-size: 14px;
+        color: #040500;
+      }
+
+      /* Custom card colors */
+      .profile-card {
+        background-color: #48ca7a;
+      }
+
+      .technical-manual-card {
+        background-color: #35d7b1;
+      }
+
+      .calculator-card {
+        background-color: #327fb9;
+      }
+
+      .design-assist-card {
+        background-color: #2886f1;
+      }
+
+      .fabstar-app-card {
+        background-color: #4f32b9;
+      }
+
+      .dr-aludecor-card {
+        background-color: #a232b9;
+      }
+
+      /* Media Queries for responsiveness */
+  @media (max-width: 768px) {
+    .main-content1 {
+      padding: 15px;
+    }
+
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hamburger-menu {
+      display: block;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+
+    .card-container {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      padding: 15px;
+    }
+
+    .user-icons {
+      margin-top: 10px;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+    </style>
+  </head>
+
+  <body>
+    <div class="main-content1">
+      <header class="header">
+        <h1>Dashboard</h1>
+        <div class="user-icons">
+          <input
+            type="text"
+            class="search-bar"
+            placeholder="Search..."
+            id="search-bar"
+          />
+          <div class="user-icon">👨‍⚕️</div>
+        </div>
+      </header>
+      <div class="card-container" id="card-container">
+        <div class="card profile-card">
+
+          <div class="card-icon">
+            <a href="{% url 'profile' %}">
+            👤
+          </a>
+        </div>
+          <h2>Profile</h2>
+        
+          <p>View and manage your personal information, project details, and preferences after logging into your account.</p>
+        </div>
+      
+        <div class="card technical-manual-card">
+          <div class="card-icon">
+            <a href="{% url 'aludecor_flipbook' %}">📘
+              </a>
+            </div>
+         
+          <h2>Technical Manual</h2>
+        
+          <p>Access comprehensive technical guides to ensure seamless installation and application of Aludecor products.</p>
+        </div>
+        <div class="card manual-card">
+          
+            <div class="card-icon">
+              <a href="{% url 'aludecor_calculator' %}">
+              🧮
+            </a>
+            </div>
+          
+          <h2>Aludecor Calculator</h2>
+          <p>Calculate precise material requirements and project estimates with our easy-to-use Aludecor Calculator.</p>
+        </div>
+        <div class="card design-assist-card">
+          <div class="card-icon">
+            <a href="{% url 'aludecor_design_assist' %}">
+              💡
+            </a>
+            </div>
+          <h2>Design Assist</h2>
+          <p>Get expert guidance and personalized solutions for your architectural and design needs with Design Assist.</p>
+        </div>
+        <div class="card fabstar-app-card">
+          <div class="card-icon">
+            <a href="{% url 'fabstar_app' %}">
+            📱
+          </a>
+          </div>
+          <h2>Fabstar App</h2>
+          <p>Streamline fabrication processes and elevate project efficiency with the advanced features of the Fabstar App.</p>
+        </div>
+        <div class="card dr-aludecor-card">
+          <div class="card-icon">
+           <a href="{% url 'connect_with_dr_aludecor' %}">
+            👨‍⚕️
+          </a>
+        </div>
+          <h2>Dr. Aludecor</h2>
+          <p>Consult our expert support platform, Dr. Aludecor, for all your technical queries and troubleshooting needs.</p>
+        </div>
+      </div>
+    </div>
+
+  
+
+    <script>
+      // JavaScript to filter cards based on search input
+      const searchBar = document.getElementById('search-bar');
+      const cards = document.querySelectorAll('.card');
+
+      searchBar.addEventListener('input', () => {
+        const searchValue = searchBar.value.toLowerCase();
+        cards.forEach(card => {
+          const cardTitle = card.querySelector('h2').textContent.toLowerCase();
+          if (cardTitle.includes(searchValue)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+{% endblock %}

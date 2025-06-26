@@ -1,0 +1,110 @@
+{% extends 'fabstar_app/base.html' %}
+{% block title %}Fabstar App{{ user.first_name }} {{ user.last_name }}{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" />
+    <title>Dr. Aludecor</title>
+    <style>
+       *,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Font */
+  --font-size: 0.9375rem;
+  /* Colors */
+  --white: hsl(0, 0%, 100%);
+  --light-gray: hsl(212, 45%, 89%);
+  --grayish-blue: hsl(220, 15%, 55%);
+  --dark-blue: hsl(218, 44%, 22%);
+  /* Border Radius */
+  --border-radius: 1.125rem;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  padding: 50px 0; /* For Extra Space */
+  font-family: "Outfit", sans-serif;
+  font-size: var(--font-size);
+  font-weight: 400;
+  background-color: var(--light-gray);
+}
+
+.main {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrcode-wrapper {
+  width: 20.125rem;
+  padding: 1.125rem;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+}
+
+.qrcode-wrapper .qrcode-image {
+  overflow: hidden;
+  border-radius: calc(var(--border-radius) / 2);
+}
+
+.qrcode-image img {
+  max-width: 100%;
+  display: block;
+  background: no-repeat center / cover;
+}
+
+.qrcode-wrapper .qrcode-text {
+  text-align: center;
+  padding: 1.375rem 1rem;
+}
+
+.qrcode-text h1 {
+  font-size: 1.375rem;
+  color: var(--dark-blue);
+  margin-bottom: 1rem;
+}
+
+.qrcode-text p {
+  color: var(--grayish-blue);
+  font-size: var(--font-size);
+  line-height: 1.3;
+}
+
+    </style>
+</head>
+<body>
+    <main class="main">
+        <div class="qrcode-wrapper">
+          <div class="qrcode-image">
+            <img src="{% static 'fab_app/wa_qr_code.png' %}" alt="QR Code Image" />
+          </div>
+          <button onclick="window.open('https://wa.me/919007824242?text=Hi', '_blank');" style="display: block; margin: 10px auto; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: 2px solid rgb(219, 201, 201); border-radius: 5px; cursor: pointer; z-index: 10; position: relative;">Say 'Growth!' </button>
+          <div class="qrcode-text">
+            <h1>Dr. Aludecor </h1>
+            <p>
+                Hi! I am Dr. Aludecor. If you want to connect with me, scan the QR code above or click the button to send 'Growth'.
+            </p>
+          </div>
+        </div>
+      </main>
+</body>
+</html>
+{% endblock %}

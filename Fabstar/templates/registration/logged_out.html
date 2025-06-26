@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged Out - Fabstar</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .container h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .btn-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-container a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="2dcanvas"></canvas>
+
+    <div class="container">
+        <h2>You have been logged out.</h2>
+        <div class="btn-container">
+            <a href="{% url 'login' %}" id="loginBtn">Login again</a>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('2dcanvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const context = canvas.getContext("2d");
+
+        let numStars = 3000;
+        const stars = [];
+        let speed = 8;
+
+        let mouseX = canvas.width / 2;
+        let mouseY = canvas.height / 2;
+
+        function createStar() {
+            let x, y;
+            do {
+                x = Math.random() * canvas.width;
+                y = Math.random() * canvas.height;
+            } while (Math.hypot(x - mouseX, y - mouseY) < 3);
+
+            return {
+                x,
+                y,
+                z: Math.random() * canvas.width,
+                o: Math.random(),
+                size: Math.random() * 3 + 2 // Random size between 3 and 6
+            };
+        }
+
+        function populateStars() {
+            stars.length = 0;
+            for (let i = 0; i < numStars; i++) {
+                stars.push(createStar());
+            }
+        }
+
+        canvas.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'ArrowUp' || event.code === 'KeyW') {
+                speed += 1;
+            } else if (event.code === 'ArrowDown' || event.code === 'KeyS') {
+                speed = Math.max(1, speed - 1);
+            } else if (event.code === 'NumpadAdd') {
+                numStars += 100;
+                populateStars();
+            } else if (event.code === 'NumpadSubtract') {
+                numStars = Math.max(100, numStars - 100);
+                populateStars();
+            }
+        });
+
+        function updateStars() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let star of stars) {
+                star.z -= speed;
+
+                if (star.z <= 0) {
+                    Object.assign(star, createStar());
+                    star.z = canvas.width;
+                }
+
+                const sx = (star.x - mouseX) * (canvas.width / star.z) + mouseX;
+                const sy = (star.y - mouseY) * (canvas.width / star.z) + mouseY;
+                const size = (1 - star.z / canvas.width) * star.size;
+                context.fillStyle = "white";
+                context.fillRect(sx, sy, size, size);
+            }
+
+            requestAnimationFrame(updateStars);
+        }
+
+        populateStars();
+        updateStars();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            mouseX = canvas.width / 2;
+            mouseY = canvas.height / 2;
+            populateStars();
+        });
+    </script>
+</body>
+</html>
